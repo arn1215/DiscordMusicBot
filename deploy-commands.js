@@ -1,7 +1,8 @@
-const { SlashCommandBuilder, Routes } = require('discord.js');
-const { REST } = require('@discordjs/rest');
+import { SlashCommandBuilder, Routes } from 'discord.js'
+import 'dotenv/config'
+import { REST } from '@discordjs/rest';
 
-require('dotenv').config()
+
 
 const commands = [
 	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
@@ -10,6 +11,7 @@ const commands = [
   new SlashCommandBuilder().setName('grjt').setDescription('Replies with grjt info!'),
   new SlashCommandBuilder().setName('realitycheck').setDescription('Get you some perspective sweaty'),
   new SlashCommandBuilder().setName('michael').setDescription('AYAYA'),
+	new SlashCommandBuilder().setName('fakename').setDescription('get you a new name'),
 ]
 	.map(command => command.toJSON());
 

@@ -1,6 +1,7 @@
 {
   "name": "musicbot",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,5 +22,8 @@
     "@discordjs/rest": "^1.0.1",
     "discord.js": "^14.1.2",
     "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0"
   }
 }
