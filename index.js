@@ -45,6 +45,9 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+
+//responses
+
 let arr = ["GAMING", "WE ARE GAMERS", "FUCK YEAH DUDE", "THIS IS VARIETY GAMING"]
 
 const randomInd = (arr) => {
@@ -76,23 +79,8 @@ client.on("messageCreate", (message) => {
 
 // pokemon api stuff
 
-
-
-const fetchPoke = (id) => {
-	let sprite;
-  let data = fetch(`https://pokeapi.co/api/v2/pokemon/${1}`)
-  .then(response => response.json())
-  .then((data) => {
-		 return data
-	});
-	return data
-}
-
-
-
-
 client.on("messageCreate", message => {
-   if (message.content === "pokemon") {
+   if (message.content === "pokemon" || message.content === "Pokemon") {
 		let data = fetch(`https://pokeapi.co/api/v2/pokemon/${ Math.floor(Math.random() * 101)}`)
 		.then(response => response.json())
 		.then(data => {
