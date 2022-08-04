@@ -1,12 +1,13 @@
 // Require the necessary discord.js classes
 import { Client, GatewayIntentBits, Message } from 'discord.js';
+import fetch from 'node-fetch';
 import 'dotenv/config'
 import { faker } from '@faker-js/faker';
 
 const bunnies = ["https://media.giphy.com/media/eMNaIlKXWAjsho9CbA/giphy.gif", "https://tenor.com/view/bunny-cute-squishy-gif-23788023", "https://media3.giphy.com/media/c7aiXUaT5MYDK/giphy.gif?cid=ecf05e470p71dvy9ropujv9nsbczna8nqb6r7ecisr6sjbys&rid=giphy.gif&ct=g"]
 // Create a new client instance
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds,  GatewayIntentBits.GuildMessages , GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
@@ -52,14 +53,53 @@ const randomInd = (arr) => {
 }
 
 client.on("messageCreate", (message) => {
-	console.log(message)
-   if (message.content === "stupid fuck") {
+
+	if (message.content === "stupid fuck") {
 		client.channels.cache.get("726323960622350339").send("you rang?")
-	 }
-	 else if (message.username !== "skomp" && message.content === "gaming" || message.content === "GAMING" || message.content === "Gaming") {
+	}
+	else if (message.username !== "skomp" && message.content === "gaming" || message.content === "GAMING" || message.content === "Gaming") {
 		client.channels.cache.get("726323960622350339").send(randomInd(arr))
+	}
+	else if (message.content === "gay") {
+		client.channels.cache.get("726323960622350339").send("https://vxtwitter.com/chunghasbff/status/1554361317384851456?s=21&t=jy8xUUq0VefMgO31eu4mmg")
+	}
+	else if (message.content === "W" || message.content === "w") {
+		client.channels.cache.get("726323960622350339").send("https://cdn.discordapp.com/attachments/726323960622350339/1004577038138617920/20220728_042642.jpg")
+		
+	}
+
+})
+
+
+
+
+
+// pokemon api stuff
+
+
+
+const fetchPoke = (id) => {
+	let sprite;
+  let data = fetch(`https://pokeapi.co/api/v2/pokemon/${1}`)
+  .then(response => response.json())
+  .then((data) => {
+		 return data
+	});
+	return data
+}
+
+
+
+
+client.on("messageCreate", message => {
+   if (message.content === "pokemon") {
+		let data = fetch(`https://pokeapi.co/api/v2/pokemon/${ Math.floor(Math.random() * 101)}`)
+		.then(response => response.json())
+		.then(data => {
+			client.channels.cache.get("726323960622350339").send(`${data.sprites.front_default}`)
+		})
+		
 	 }
-	 
 })
 
 
