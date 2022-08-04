@@ -5,7 +5,8 @@ import { faker } from '@faker-js/faker';
 
 const bunnies = ["https://media.giphy.com/media/eMNaIlKXWAjsho9CbA/giphy.gif", "https://tenor.com/view/bunny-cute-squishy-gif-23788023", "https://media3.giphy.com/media/c7aiXUaT5MYDK/giphy.gif?cid=ecf05e470p71dvy9ropujv9nsbczna8nqb6r7ecisr6sjbys&rid=giphy.gif&ct=g"]
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds,  GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions] });
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds,  GatewayIntentBits.GuildMessages , GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
@@ -43,8 +44,23 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+let arr = ["GAMING", "WE ARE GAMERS", "FUCK YEAH DUDE", "THIS IS VARIETY GAMING"]
 
-client.on("messageCreate", )
+const randomInd = (arr) => {
+	let index = Math.floor(Math.random() * arr.length)
+	return arr[index]
+}
+
+client.on("messageCreate", (message) => {
+	console.log(message)
+   if (message.content === "stupid fuck") {
+		client.channels.cache.get("726323960622350339").send("you rang?")
+	 }
+	 else if (message.username !== "skomp" && message.content === "gaming" || message.content === "GAMING" || message.content === "Gaming") {
+		client.channels.cache.get("726323960622350339").send(randomInd(arr))
+	 }
+	 
+})
 
 
 // Login to Discord with your client's token
