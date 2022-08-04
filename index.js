@@ -27,7 +27,7 @@ client.on('interactionCreate', async interaction => {
 	} else if (commandName === 'user') {
 		await interaction.reply('User info.');
 	} else if (commandName === 'grjt') {
-		await interaction.reply("Number one stand up guy, please come back for more grjt update later");
+		await interaction.reply("Number one stand up guy,  HE JUST GOT 7:02 PB ON HADES please come back for more grjt update later");
 	} else if (commandName === 'realitycheck') {
 		await interaction.reply("https://www.youtube.com/watch?v=41ckNivfT8I");
 	} else if (commandName === 'michael') {
@@ -36,11 +36,9 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply(`${faker.name.findName()}`);
 	} else if (commandName === 'moo') {
 		await interaction.reply(`${faker.image.cats()}`);
-	}
-	else if (commandName === 'gort') {
+	}	else if (commandName === 'gort') {
 		await interaction.reply(`gort`);
-	}
-	else if (commandName === 'skomp') {
+	}	else if (commandName === 'skomp') {
 		await interaction.reply(`skomp`);
 	}
 });
@@ -68,26 +66,24 @@ client.on("messageCreate", (message) => {
 	}
 	else if (message.content === "W" || message.content === "w") {
 		client.channels.cache.get("726323960622350339").send("https://cdn.discordapp.com/attachments/726323960622350339/1004577038138617920/20220728_042642.jpg")
-		
+	}
+	else if (message.content === "yo") {
+		message.react("🦥")
 	}
 
 })
 
 
-
-
-
 // pokemon api stuff
 
 client.on("messageCreate", message => {
-   if (message.content === "pokemon" || message.content === "Pokemon") {
-		let data = fetch(`https://pokeapi.co/api/v2/pokemon/${ Math.floor(Math.random() * 101)}`)
-		.then(response => response.json())
-		.then(data => {
-			client.channels.cache.get("726323960622350339").send(`${data.sprites.front_default}`)
-		})
-		
-	 }
+	if (message.content === "!pokemon") {
+		let data = fetch(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 200)}`)
+			.then(response => response.json())
+			.then(data => {
+				client.channels.cache.get("726323960622350339").send(`${data.sprites.front_default}`)
+			})
+	}
 })
 
 
