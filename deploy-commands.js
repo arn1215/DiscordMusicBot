@@ -12,7 +12,11 @@ const commands = [
   new SlashCommandBuilder().setName('realitycheck').setDescription('Get you some perspective sweaty'),
   new SlashCommandBuilder().setName('michael').setDescription('AYAYA'),
 	new SlashCommandBuilder().setName('fakename').setDescription('get you a new name'),
+	new SlashCommandBuilder().setName('moo').setDescription('what kinda dog is that?'),
+	new SlashCommandBuilder().setName('gort').setDescription('gort'),
+	new SlashCommandBuilder().setName('skomp').setDescription('skomp'),
 ]
+
 	.map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
