@@ -47,7 +47,7 @@ client.on('interactionCreate', async interaction => {
 // youtube search api
 client.on("messageCreate", message => {
   if (message.content.slice(0, 3) === "!yt") {
-    let data = fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=${apikey}&type=video&q=${message.content.slice(3)}`)
+    let data = fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=${process.env.YOUTUBE_TOKEN}&type=video&q=${message.content.slice(3)}`)
       .then(response => response.json())
       .then(data => {
         client.channels.cache.get("726323960622350339").send(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`)
