@@ -1,18 +1,38 @@
 // Require the necessary discord.js classes
-import { Client, GatewayIntentBits, Message } from 'discord.js';
+import { Client, FormattingPatterns, GatewayIntentBits, IntentsBitField, Message, VoiceChannel } from 'discord.js';
 import fetch from 'node-fetch';
 import 'dotenv/config'
 import { faker } from '@faker-js/faker';
+import join from "node:path";
+import fs from "fs";
+import { generateDependencyReport } from '@discordjs/voice';
+import {
+	joinVoiceChannel,
+	createAudioPlayer,
+	createAudioResource,
+	entersState,
+	StreamType,
+	AudioPlayerStatus,
+	VoiceConnectionStatus,
+	NoSubscriberBehavior,
+	getVoiceConnection,
+	
+} from '@discordjs/voice';
+import path from 'path';
+const __dirname = path.resolve()
+
+
 
 const bunnies = ["https://media.giphy.com/media/eMNaIlKXWAjsho9CbA/giphy.gif", "https://tenor.com/view/bunny-cute-squishy-gif-23788023", "https://media3.giphy.com/media/c7aiXUaT5MYDK/giphy.gif?cid=ecf05e470p71dvy9ropujv9nsbczna8nqb6r7ecisr6sjbys&rid=giphy.gif&ct=g"]
 // Create a new client instance
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildVoiceStates,], });
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
 	console.log('Ready!');
 });
+
 
 
 client.on('interactionCreate', async interaction => {
@@ -85,6 +105,64 @@ client.on("messageCreate", message => {
 			})
 	}
 })
+
+
+
+// voice
+
+
+
+
+
+
+
+
+
+
+
+client.on("messageCreate", message => {
+	if (message.content === "!joinplease") {
+		joinVoiceChannel({
+			channelId: message.member.voice.channel.id,
+			guildId: message.guild.id,
+			adapterCreator:  message.guild.voiceAdapterCreator,
+			selfDeaf: false
+			
+			
+		  })
+		
+		
+		
+
+
+		
+	}
+})
+
+client.on("messageCreate", message => {
+	if (message.content === "!play") {
+		
+		const player = createAudioPlayer({
+			behaviors:{
+				noSubscriber: NoSubscriberBehavior.Play
+			}
+		});  
+		
+		const resource = createAudioResource('file.mp3');
+		player.play(resource);
+		
+		player.on("error", error => {
+			console.error(`error: ${error.message} }`)
+		}) 
+
+		
+		
+
+
+		console.log(resource)
+	}
+})
+
 
 
 // Login to Discord with your client's token
