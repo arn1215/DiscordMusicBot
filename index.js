@@ -66,26 +66,27 @@ const randomInd = (arr) => {
 }
 
 client.on("messageCreate", (message) => {
-	console.log(message.username)
-	if (message.content === "stupid fuck") {
-		client.channels.cache.get("726323960622350339").send("you rang?")
-	}
-	else if (message.content === "GAMING" || message.content === "gaming" | message.content === "Gaming") {
-		if (message.username === "skomp") {
-			return null
-		} else {
-			client.channels.cache.get("726323960622350339").send(randomInd(arr))
-		}
-	}
-	else if (message.content === "gay") {
-		client.channels.cache.get("726323960622350339").send("https://vxtwitter.com/chunghasbff/status/1554361317384851456?s=21&t=jy8xUUq0VefMgO31eu4mmg")
-	}
-	else if (message.content === "W" || message.content === "w") {
-		client.channels.cache.get("726323960622350339").send("https://cdn.discordapp.com/attachments/726323960622350339/1004577038138617920/20220728_042642.jpg")
-	}
-	else if (message.content === "yo") {
-		message.react("🦥")
-	}
+  console.log(message.author.bot)
+
+  if (message.content === "stupid fuck") {
+    client.channels.cache.get("726323960622350339").send("you rang?")
+  }
+  else if (message.content === "GAMING" || message.content === "gaming" | message.content === "Gaming") {
+    if (!message.author.bot) {
+      client.channels.cache.get("726323960622350339").send(randomInd(arr))
+    }
+  }
+  else if (message.content === "gay") {
+    client.channels.cache.get("726323960622350339").send("https://vxtwitter.com/chunghasbff/status/1554361317384851456?s=21&t=jy8xUUq0VefMgO31eu4mmg")
+  }
+  else if (message.content === "W" || message.content === "w") {
+    if (!message.author.bot) {
+      client.channels.cache.get("726323960622350339").send("W")
+    }
+  }
+  else if (message.content === "yo") {
+    message.react("🦥")
+  }
 
 })
 
