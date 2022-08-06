@@ -4,7 +4,6 @@ import fetch from 'node-fetch';
 import 'dotenv/config'
 import { faker } from '@faker-js/faker';
 
-const bunnies = ["https://media.giphy.com/media/eMNaIlKXWAjsho9CbA/giphy.gif", "https://tenor.com/view/bunny-cute-squishy-gif-23788023", "https://media3.giphy.com/media/c7aiXUaT5MYDK/giphy.gif?cid=ecf05e470p71dvy9ropujv9nsbczna8nqb6r7ecisr6sjbys&rid=giphy.gif&ct=g"]
 // Create a new client instance
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
@@ -17,9 +16,10 @@ client.once('ready', () => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isChatInputCommand()) return;
-
+	
 	const { commandName } = interaction;
-
+	const bunnies = ["https://media.giphy.com/media/eMNaIlKXWAjsho9CbA/giphy.gif", "https://tenor.com/view/bunny-cute-squishy-gif-23788023", "https://media3.giphy.com/media/c7aiXUaT5MYDK/giphy.gif?cid=ecf05e470p71dvy9ropujv9nsbczna8nqb6r7ecisr6sjbys&rid=giphy.gif&ct=g"]
+	
 	if (commandName === 'ping') {
 		await interaction.reply('Pong!');
 	} else if (commandName === 'server') {
@@ -42,6 +42,18 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply(`skomp`);
 	}
 });
+
+
+// youtube search api
+client.on("messageCreate", message => {
+  if (message.content.slice(0, 3) === "!yt") {
+    let data = fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAaGuJ2yzJISrAko1rirHH3Nb19e7Ft25c&type=video&q=${message.content.slice(3)}`)
+      .then(response => response.json())
+      .then(data => {
+        client.channels.cache.get("726323960622350339").send(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`)
+      })
+  }
+})
 
 
 //responses
