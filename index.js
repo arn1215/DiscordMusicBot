@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
-import { Client, GatewayIntentBits, Message } from 'discord.js';
+import { Client, GatewayIntentBits, Message, MessageManager } from 'discord.js';
 import fetch from 'node-fetch';
 import 'dotenv/config'
 import { faker } from '@faker-js/faker';
@@ -16,10 +16,10 @@ client.once('ready', () => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isChatInputCommand()) return;
-	
+
 	const { commandName } = interaction;
 	const bunnies = ["https://media.giphy.com/media/eMNaIlKXWAjsho9CbA/giphy.gif", "https://tenor.com/view/bunny-cute-squishy-gif-23788023", "https://media3.giphy.com/media/c7aiXUaT5MYDK/giphy.gif?cid=ecf05e470p71dvy9ropujv9nsbczna8nqb6r7ecisr6sjbys&rid=giphy.gif&ct=g"]
-	
+
 	if (commandName === 'ping') {
 		await interaction.reply('Pong!');
 	} else if (commandName === 'server') {
@@ -36,9 +36,9 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply(`${faker.name.findName()}`);
 	} else if (commandName === 'moo') {
 		await interaction.reply(`${faker.image.cats()}`);
-	}	else if (commandName === 'gort') {
+	} else if (commandName === 'gort') {
 		await interaction.reply(`gort`);
-	}	else if (commandName === 'skomp') {
+	} else if (commandName === 'skomp') {
 		await interaction.reply(`skomp`);
 	}
 });
@@ -46,13 +46,13 @@ client.on('interactionCreate', async interaction => {
 
 // youtube search api
 client.on("messageCreate", message => {
-  if (message.content.slice(0, 3) === "!yt") {
-    let data = fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=${process.env.YOUTUBE_TOKEN}&type=video&q=${message.content.slice(3)}`)
-      .then(response => response.json())
-      .then(data => {
-        client.channels.cache.get("726323960622350339").send(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`)
-      })
-  }
+	if (message.content.slice(0, 3) === "!yt") {
+		let data = fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=${process.env.YOUTUBE_TOKEN}&type=video&q=${message.content.slice(3)}`)
+			.then(response => response.json())
+			.then(data => {
+				client.channels.cache.get("726323960622350339").send(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`)
+			})
+	}
 })
 
 
@@ -66,12 +66,16 @@ const randomInd = (arr) => {
 }
 
 client.on("messageCreate", (message) => {
-
+	console.log(message.username)
 	if (message.content === "stupid fuck") {
 		client.channels.cache.get("726323960622350339").send("you rang?")
 	}
-	else if (message.username !== "skomp" && message.content === "gaming" || message.content === "GAMING" || message.content === "Gaming") {
-		client.channels.cache.get("726323960622350339").send(randomInd(arr))
+	else if (message.content === "GAMING" || message.content === "gaming" | message.content === "Gaming") {
+		if (message.username === "skomp") {
+			return null
+		} else {
+			client.channels.cache.get("726323960622350339").send(randomInd(arr))
+		}
 	}
 	else if (message.content === "gay") {
 		client.channels.cache.get("726323960622350339").send("https://vxtwitter.com/chunghasbff/status/1554361317384851456?s=21&t=jy8xUUq0VefMgO31eu4mmg")
